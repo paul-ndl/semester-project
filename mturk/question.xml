@@ -1,91 +1,258 @@
-<HTMLQuestion>
-  <HTMLContent>
+<HTMLQuestion xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2011-11-11/HTMLQuestion.xsd">
+  <HTMLContent><![CDATA[
     <!DOCTYPE html>
     <html>
         <head>
             <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+            <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
         </head>
         <body>
-            <div id="q0">
-                <p>What is your age?</p>
-                <select name="age" required>
-                    <option value="">18-25</option>
-                    <option value="">26-35</option>
-                    <option value="">36-45</option>
-                    <option value="">46-55</option>
-                    <option value="">56-65</option>
-                    <option value="">+65</option>   
-                </select>
+
+            <progress id="progressbar" value="0" max="3" style="width:0;min-width:100%;"></progress>
+
+
+            <div id="q0" class="information">
+                <h2>Fill in your information</h2>
+
+                <form class="inside-information">
+                    <label for="age">What is your age?</label>
+                    <select name="age" required>
+                        <option value="" selected>-- Please select an age range --</option>
+                        <option value="18-25">18-25</option>
+                        <option value="26-35">26-35</option>
+                        <option value="36-45">36-45</option>
+                        <option value="46-55">46-55</option>
+                        <option value="56-65">56-65</option>
+                        <option value="+65">+65</option>   
+                    </select>
+                
+                    <br>
+                    <br>
+                
+                    <label for="continent">Where are you from?</label>
+                    <select name="continent" required>
+                        <option value="" selected>-- Please select a continent --</option>
+                        <option value="asia">Asia</option>
+                        <option value="africa">Africa</option>
+                        <option value="europe">Europe</option>
+                        <option value="north-america">North America</option>
+                        <option value="south-america">South America</option>
+                        <option value="australia">Australia/Oceania</option>
+                        <option value="antartica">Antarctica</option>        
+                    </select>
+                
+                    <br>
+                    <br>
+
+                    <label for="gender">What is your gender?</label>
+                    <select name="gender" required>
+                        <option value="" selected>-- Please select a gender --</option>
+                        <option value="female">Female</option>
+                        <option value="male">Male</option> 
+                        <option value="other">Other</option>
+                    </select>
+                </form>
+                
                 <br>
                 <br>
-                <input type="button" value="Next" onclick="goNext(0)">
+                <input class="next-button" id="information-next-button" type="button" value="Next" onclick="goNext('information')">
             </div>
             
-            <div id="q1" style="display:none">
-                <p>Where are you from?</p>
-                <select name="continent" required>
-                    <option value="">Asia</option>
-                    <option value="">Africa</option>
-                    <option value="">Europe</option>
-                    <option value="">North America</option>
-                    <option value="">South America</option>
-                    <option value="">Australia/Oceania</option>
-                    <option value="">Antarctica</option>        
-                </select>
-                <br>
-                <br>
-                <input type="button" value="Next" onclick="goNext(1)">
-            </div>
-            
-            <div id="q2" style="display:none">
-                <p>What is your gender?</p>
-                <select name="gender" required>
-                    <option value="">Female</option>
-                    <option value="">Male</option> 
-                    <option value="">Other</option> 
-                </select>
-                <br>
-                <br>
-                <input type="button" value="Next" onclick="goNext(2)">
-            </div>
-            
-            <div id="q3" style="display:none">
-                <div style="display:flex;justify-content:center;">
-                    <img src="https://cdn.intermarche.com/fr/Content/images/boitmal/produit/zoom/2AC0153DCDEC61F664C29EF48E10E513.jpg" width="256" height="256">
-                    <img src="https://www.kimmelorchard.org/sites/default/files/fruit/kimmel-apple-cameo.jpg" width="256" height="256">
+            <div id="q1" class="survey-question">
+                <h2>Which one do you prefer?</h2>
+                <div class="inside-question">
+                    <img id="comparison1" class= "comparison-button" src="https://cdn.intermarche.com/fr/Content/images/boitmal/produit/zoom/2AC0153DCDEC61F664C29EF48E10E513.jpg" alt="Image 1" width="256" height="256" onclick="chooseComparison('1')">
+                    <img id="comparison2" class="comparison-button" src="https://www.kimmelorchard.org/sites/default/files/fruit/kimmel-apple-cameo.jpg" alt="Image 2" width="256" height="256" onclick="chooseComparison('2')">
                 </div>
-                <div style="text-align:center;">
-                    <h1>Which one do you prefer?</h1>
-                    <input type="radio" name="option" value="option1">Image 1
-                    <input type="radio" name="option" value="option2"> I don't know one of these element...
-                    <input type="radio" name="option" value="option3">Image 2
+                <div class="inside-question">
+                    <input type="button" id="comparison3" class="unknown-button comparison-button" onclick="chooseComparison('3')" value="I don't know image 1">
+                    <input type="button" id="comparison4" class="unknown-button comparison-button" onclick="chooseComparison('4')" value="I don't know image 2">
                 </div>
                 <br>
                 <br>
-                <input type="button" value="Next" onclick="goNext(3)">
+                <input class="next-button" type="button" value="Next" onclick="goNext('comparison')">
+            </div>
+
+            <div id="q2" class="survey-question">
+                <h2>Rate this!</h2>
+                <div class="inside-question">
+                    <img id="image" src="https://www.iconexperience.com/_img/v_collection_png/256x256/shadow/banana.png" alt="Image" width="256" height="256">
+                </div>
+                <div class="inside-question">
+                    <input type="button" id="star1" class="star-button" onclick="chooseStar(1)" value="1">
+                    <input type="button" id="star2" class="star-button" onclick="chooseStar(2)" value="2">
+                    <input type="button" id="star3" class="star-button" onclick="chooseStar(3)" value="3">
+                    <input type="button" id="star4" class="star-button" onclick="chooseStar(4)" value="4">
+                    <input type="button" id="star5" class="star-button" onclick="chooseStar(5)" value="5">
+                </div>
+                <br>
+                <br>
+                <input class="next-button" type="button" value="Next" onclick="goNext('rating')">
             </div>
           
-            <p><input type='submit' id='submitButton' value='Submit' onclick="submitTest()"/></p>
+            <div id="q3" class="survey-question">
+                <h2>Congratulations! You have completed the survey.</h2>
+                <p><input class="next-button" type='submit' id='submitButton' value='Submit' onclick="submitTest()"/></p>
+            </div>
           
             <script language=javascript>
-                document.getElementById("submitButton").style.display = 'none'; 
-                function goNext(i)
+                const progressbar = document.getElementById("progressbar");
+                const form = document.querySelector('form');
+                var i = 0;
+                var currentAnswer = -1;
+                var answers = [];
+
+                function checkFields() {
+                    // check if all required fields are filled in
+                    const requiredFields = form.querySelectorAll('select[required]');
+                    var jsonArr = [];
+                    for (let i = 0; i < requiredFields.length; i++) {
+                        if (requiredFields[i].value) {
+                            jsonArr.push({
+                                id: requiredFields[i].name,
+                                value: requiredFields[i].value
+                            });
+                        } else {
+                            return null;
+                        }
+                    }
+                    return jsonArr;
+                };
+                
+                function goNext(type)
                 {
-                    document.getElementById("q"+i).style.display = 'none'; 
-                    if (i == 3) {
-                        document.getElementById("submitButton").style.display = 'block';
+                    if (type=='information') {
+                        let jsonArr = checkFields();
+                        if (!jsonArr) {
+                            return;
+                        } else {
+                            answers = jsonArr;
+                        }
                     } else {
+                        if (currentAnswer==-1) {
+                            return;
+                        } else {
+                            answers.push({
+                                id: 'question' + i,
+                                value: currentAnswer
+                            });
+                        }
+                    }
+                    currentAnswer = -1;
+                    document.getElementById("q"+i).style.display = 'none'; 
+                    if (i != 3) {
                         i++;
                         document.getElementById("q"+i).style.display = 'block';
+                        updateProgressBar(i);
                     }
                 }
-                
-                function submitTest()
-                {
-                    console.log("hello");
+
+                function updateProgressBar(value) {
+                    progressbar.value = value;
                 }
+                
+                function chooseComparison(optionNumber) {
+                    [...document.getElementsByClassName("comparison-button")].forEach(
+                        (element, index, array) => {
+                            element.style.border = 'none';
+                        }
+                    );
+                    document.getElementById('comparison'+optionNumber).style.border = 'solid 4px red';
+                    currentAnswer = optionNumber;
+                }
+
+                function chooseStar(starNumber) {
+                    [...document.getElementsByClassName("star-button")].forEach(
+                        (element, index, array) => {
+                            element.style.border = 'none';
+                        }
+                    );
+                    document.getElementById("star"+starNumber).style.border = 'solid 4px blueviolet';
+                    currentAnswer = starNumber;
+                }
+
+                function submitTest() {
+                    console.log(answers);
+                }
+
             </script>
+
+            <style>
+                body
+                {
+                    font-family: 'Roboto';font-size: 18px;
+                }
+
+                select
+                {
+                    width: 300px;
+                    text-align: center;
+                    display: block;
+                    margin: 0 auto;
+                }
+
+                .information 
+                {
+                    margin: 0% auto;
+                    max-width: 350px;
+                    display: block;
+                    text-align:center;
+                }
+
+                .inside-information
+                {
+                    text-align:left;
+                    margin: auto;
+                }
+
+                .survey-question
+                {
+                    display: none;
+                    text-align: center;
+                }
+
+                .inside-question
+                {
+                    display:flex;
+                    justify-content:center;
+                    margin: 5px;
+                }
+
+                .next-button
+                {
+                    width: 150px;
+                    height: 30px;
+                    background-color: rgb(84, 84, 255);
+                    border-radius: 10px;
+                    border: none;
+                    color: white;
+                }
+
+                .unknown-button
+                {
+                    width: 350px;
+                    height: 30px;
+                    background-color: rgb(68, 182, 125);
+                    border-radius: 10px;
+                    border: none;
+                    color: white;
+                    margin: 5px;
+                }
+
+                .star-button
+                {
+                    width: 50px;
+                    height: 50px;
+                    background-color: rgb(68, 182, 125);
+                    border-radius: 25px;
+                    border: none;
+                    margin: 5px;
+                }
+            </style>
      </body>
     </html>
+    
+    ]]>
   </HTMLContent>
+  <FrameHeight>450</FrameHeight>
 </HTMLQuestion>
