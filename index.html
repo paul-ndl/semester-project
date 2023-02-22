@@ -3,6 +3,7 @@
         <head>
             <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
             <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+            <script type='text/javascript' src='https://s3.amazonaws.com/mturk-public/externalHIT_v1.js'></script>
         </head>
         <body>
 
@@ -93,11 +94,12 @@
                 <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
                     <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
                     <input type='hidden' value='' name='data' id='data'/>
-                    <p><input class="next-button" type='submit' id='submitButton' value='Submit' onclick="submitTest()"/></p>
+                    <p><input class="next-button" type='submit' id='submitButton' value='Submit'/></p>
                 </form>
             </div>
           
-            <script language=javascript>
+            <script language='Javascript'>
+                turkSetAssignmentID();
                 const progressbar = document.getElementById("progressbar");
                 const form = document.querySelector('form');
                 var i = 0;
@@ -175,11 +177,6 @@
                     document.getElementById("star"+starNumber).style.border = 'solid 4px blueviolet';
                     currentAnswer = starNumber;
                 }
-
-                function submitTest() {
-                    console.log(answers);
-                }
-
             </script>
 
             <style>
