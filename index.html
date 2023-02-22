@@ -90,7 +90,11 @@
           
             <div id="q3" class="survey-question">
                 <h2>Congratulations! You have completed the survey.</h2>
-                <p><input class="next-button" type='submit' id='submitButton' value='Submit' onclick="submitTest()"/></p>
+                <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+                    <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
+                    <input type='hidden' value='' name='data' id='data'/>
+                    <p><input class="next-button" type='submit' id='submitButton' value='Submit' onclick="submitTest()"/></p>
+                </form>
             </div>
           
             <script language=javascript>
@@ -138,6 +142,9 @@
                     }
                     currentAnswer = -1;
                     document.getElementById("q"+i).style.display = 'none'; 
+                    if (i == 2) {
+                        document.getElementById("data").value = JSON.stringify(answers);
+                    }
                     if (i != 3) {
                         i++;
                         document.getElementById("q"+i).style.display = 'block';
