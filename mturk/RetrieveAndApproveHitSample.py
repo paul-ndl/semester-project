@@ -16,6 +16,7 @@ import sys
 import boto3
 from xml.dom.minidom import parseString
 import key
+import json
 
 region_name = "us-east-1"
 aws_access_key_id = key.id
@@ -58,8 +59,6 @@ mturk_environment = (
     environments["live"] if create_hits_in_live else environments["sandbox"]
 )
 
-# use profile if one was passed as an arg, otherwise
-profile_name = sys.argv[2] if len(sys.argv) >= 3 else None
 
 client = boto3.client(
     service_name="mturk",
@@ -92,11 +91,13 @@ for assignment in assignments:
         t.nodeValue for t in answer.childNodes if t.nodeType == t.TEXT_NODE
     )
 
-    print(
-        'The Worker with ID {} submitted assignment {} and gave the answer "{}"'.format(
-            worker_id, assignment_id, only_answer
-        )
-    )
+    # print(
+    #     'The Worker with ID {} submitted assignment {} and gave the answer "{}"'.format(
+    #         worker_id, assignment_id, only_answer
+    #     )
+    # )
+    answer = json.loads(only_answer)
+    print('Value : ', answer)
 
     # Approve the Assignment (if it hasn't already been approved)
     if assignment["AssignmentStatus"] == "Submitted":

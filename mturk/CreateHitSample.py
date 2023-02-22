@@ -86,13 +86,14 @@ worker_requirements = [
     }
 ]
 
+title = "New"
 # Create the HIT
 response = client.create_hit(
     MaxAssignments=3,
     LifetimeInSeconds=600,
     AssignmentDurationInSeconds=600,
     Reward=mturk_environment["reward"],
-    Title="Answer a simple question",
+    Title=title,
     Keywords="question, answer, research",
     Description="Answer a simple question. Created from mturk-code-samples.",
     Question=question_sample,
