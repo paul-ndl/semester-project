@@ -1,17 +1,3 @@
-# Copyright 2017 Amazon.com, Inc. or its affiliates
-
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-
-# http://www.apache.org/licenses/LICENSE-2.0
-
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import sys
 import boto3
 from xml.dom.minidom import parseString
@@ -22,16 +8,6 @@ region_name = "us-east-1"
 aws_access_key_id = key.id
 aws_secret_access_key = key.key
 
-# Before connecting to MTurk, set up your AWS account and IAM settings as described here:
-# https://blog.mturk.com/how-to-use-iam-to-control-api-access-to-your-mturk-account-76fe2c2e66e2
-#
-# Follow AWS best practices for setting up credentials here:
-# http://boto3.readthedocs.io/en/latest/guide/configuration.html
-
-# Use the Amazon Mechanical Turk Sandbox to publish test Human Intelligence Tasks (HITs) without paying any money.
-# Sign up for a Sandbox account at https://requestersandbox.mturk.com/ with the same credentials as your main MTurk account.
-
-# This HIT id should be the HIT you just created - see the CreateHITSample.py file for generating a HIT
 if len(sys.argv) < 2:
     print("You must pass a HIT id as the first argument")
     sys.exit(-1)
@@ -83,23 +59,14 @@ for assignment in assignments:
     assignment_id = assignment["AssignmentId"]
     answer_xml = parseString(assignment["Answer"])
 
-    # the answer is an xml document. we pull out the value of the first
-    # //QuestionFormAnswers/Answer/FreeText
     answer = answer_xml.getElementsByTagName("FreeText")[0]
-    # See https://stackoverflow.com/questions/317413
     only_answer = " ".join(
         t.nodeValue for t in answer.childNodes if t.nodeType == t.TEXT_NODE
     )
 
-    # print(
-    #     'The Worker with ID {} submitted assignment {} and gave the answer "{}"'.format(
-    #         worker_id, assignment_id, only_answer
-    #     )
-    # )
     answer = json.loads(only_answer)
     print('Value : ', answer)
 
-    # Approve the Assignment (if it hasn't already been approved)
     if assignment["AssignmentStatus"] == "Submitted":
         print("Approving Assignment {}".format(assignment_id))
         client.approve_assignment(
