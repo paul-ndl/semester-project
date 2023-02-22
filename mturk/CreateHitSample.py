@@ -1,6 +1,8 @@
 import sys
 import boto3
 import key
+import csv
+
 
 region_name = "us-east-1"
 aws_access_key_id = key.id
@@ -48,27 +50,39 @@ worker_requirements = [
     }
 ]
 
-title = "New"
-# Create the HIT
-response = client.create_hit(
-    MaxAssignments=3,
-    LifetimeInSeconds=600,
-    AssignmentDurationInSeconds=600,
-    Reward=mturk_environment["reward"],
-    Title=title,
-    Keywords="question, answer, research",
-    Description="Answer a simple question. Created from mturk-code-samples.",
-    Question=question_sample,
-    QualificationRequirements=worker_requirements,
-)
+with open("../mock_processed_data.csv", "r", encoding="utf8") as file:
+    reader = csv.reader(file)
+    variables = [row for row in reader]
 
-# The response included several fields that will be helpful later
-hit_type_id = response["HIT"]["HITTypeId"]
-hit_id = response["HIT"]["HITId"]
-print("\nCreated HIT: {}".format(hit_id))
 
-print("\nYou can work the HIT here:")
-print(mturk_environment["preview"] + "?groupId={}".format(hit_type_id))
+for row in variables[1:]:
+    image_nb = row[1]
+    description = row[2]
 
-print("\nAnd see results here:")
-print(mturk_environment["manage"])
+    image_path = str(image_nb).zfill(4) + ".png"
+    question_sample = question_sample.replace("path1", image_path)
+
+    title = "New"
+    # Create the HIT
+    response = client.create_hit(
+        MaxAssignments=1,
+        LifetimeInSeconds=600,
+        AssignmentDurationInSeconds=600,
+        Reward=mturk_environment["reward"],
+        Title=title,
+        Keywords="question, answer, research",
+        Description="Answer a simple question. Created from mturk-code-samples.",
+        Question=question_sample,
+        QualificationRequirements=worker_requirements,
+    )
+
+    # The response included several fields that will be helpful later
+    hit_type_id = response["HIT"]["HITTypeId"]
+    hit_id = response["HIT"]["HITId"]
+    print("\nCreated HIT: {}".format(hit_id))
+
+    print("\nYou can work the HIT here:")
+    print(mturk_environment["preview"] + "?groupId={}".format(hit_type_id))
+
+    print("\nAnd see results here:")
+    print(mturk_environment["manage"])
