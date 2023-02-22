@@ -91,15 +91,15 @@
           
             <div id="q3" class="survey-question">
                 <h2>Congratulations! You have completed the survey.</h2>
-                <form name='mturk_form' method='post' id='mturk_form' action='https://www.mturk.com/mturk/externalSubmit'>
+                <form name='mturk_form' method='post' id='mturk_form' action='https://workersandbox.mturk.com/mturk/externalSubmit'>
                     <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
                     <input type='hidden' value='' name='data' id='data'/>
                     <p><input class="next-button" type='submit' id='submitButton' value='Submit'/></p>
                 </form>
+                <script language='Javascript'>turkSetAssignmentID()</script>
             </div>
           
             <script language='Javascript'>
-                turkSetAssignmentID();
                 const progressbar = document.getElementById("progressbar");
                 const form = document.querySelector('form');
                 var i = 0;
