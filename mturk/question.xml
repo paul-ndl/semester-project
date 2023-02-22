@@ -1,0 +1,91 @@
+<HTMLQuestion>
+  <HTMLContent>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+        </head>
+        <body>
+            <div id="q0">
+                <p>What is your age?</p>
+                <select name="age" required>
+                    <option value="">18-25</option>
+                    <option value="">26-35</option>
+                    <option value="">36-45</option>
+                    <option value="">46-55</option>
+                    <option value="">56-65</option>
+                    <option value="">+65</option>   
+                </select>
+                <br>
+                <br>
+                <input type="button" value="Next" onclick="goNext(0)">
+            </div>
+            
+            <div id="q1" style="display:none">
+                <p>Where are you from?</p>
+                <select name="continent" required>
+                    <option value="">Asia</option>
+                    <option value="">Africa</option>
+                    <option value="">Europe</option>
+                    <option value="">North America</option>
+                    <option value="">South America</option>
+                    <option value="">Australia/Oceania</option>
+                    <option value="">Antarctica</option>        
+                </select>
+                <br>
+                <br>
+                <input type="button" value="Next" onclick="goNext(1)">
+            </div>
+            
+            <div id="q2" style="display:none">
+                <p>What is your gender?</p>
+                <select name="gender" required>
+                    <option value="">Female</option>
+                    <option value="">Male</option> 
+                    <option value="">Other</option> 
+                </select>
+                <br>
+                <br>
+                <input type="button" value="Next" onclick="goNext(2)">
+            </div>
+            
+            <div id="q3" style="display:none">
+                <div style="display:flex;justify-content:center;">
+                    <img src="https://cdn.intermarche.com/fr/Content/images/boitmal/produit/zoom/2AC0153DCDEC61F664C29EF48E10E513.jpg" width="256" height="256">
+                    <img src="https://www.kimmelorchard.org/sites/default/files/fruit/kimmel-apple-cameo.jpg" width="256" height="256">
+                </div>
+                <div style="text-align:center;">
+                    <h1>Which one do you prefer?</h1>
+                    <input type="radio" name="option" value="option1">Image 1
+                    <input type="radio" name="option" value="option2"> I don't know one of these element...
+                    <input type="radio" name="option" value="option3">Image 2
+                </div>
+                <br>
+                <br>
+                <input type="button" value="Next" onclick="goNext(3)">
+            </div>
+          
+            <p><input type='submit' id='submitButton' value='Submit' onclick="submitTest()"/></p>
+          
+            <script language=javascript>
+                document.getElementById("submitButton").style.display = 'none'; 
+                function goNext(i)
+                {
+                    document.getElementById("q"+i).style.display = 'none'; 
+                    if (i == 3) {
+                        document.getElementById("submitButton").style.display = 'block';
+                    } else {
+                        i++;
+                        document.getElementById("q"+i).style.display = 'block';
+                    }
+                }
+                
+                function submitTest()
+                {
+                    console.log("hello");
+                }
+            </script>
+     </body>
+    </html>
+  </HTMLContent>
+</HTMLQuestion>
