@@ -62,7 +62,7 @@
             <div id="q1" class="survey-question">
                 <h2>Which one do you prefer?</h2>
                 <div class="inside-question">
-                    <img id="comparison1" class= "comparison-button" src="https://cdn.intermarche.com/fr/Content/images/boitmal/produit/zoom/2AC0153DCDEC61F664C29EF48E10E513.jpg" alt="Image 1" width="256" height="256" onclick="chooseComparison('1')">
+                    <img id="comparison1" class= "comparison-button" src="../data/pictures/path1" alt="Image 1" width="256" height="256" onclick="chooseComparison('1')">
                     <img id="comparison2" class="comparison-button" src="https://www.kimmelorchard.org/sites/default/files/fruit/kimmel-apple-cameo.jpg" alt="Image 2" width="256" height="256" onclick="chooseComparison('2')">
                 </div>
                 <div class="inside-question">
