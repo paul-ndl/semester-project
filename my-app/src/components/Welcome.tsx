@@ -41,7 +41,7 @@ export default function Welcome() {
         As members of EPFL, the following articles apply to our research: <a href='https://fedlex.data.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/1993/210_210_210/20170501/en/pdf-a/fedlex-data-admin-ch-eli-cc-1993-210_210_210-20170501-en-pdf-a.pdf'>art. 36c ETH Act (RS 414.110)</a>
       </p>
       {signedIn ?
-        (<Button onClick={() => { navigate("/feedback") }}>Let's start</Button>) :
+        (<Button onClick={() => { navigate("/similarityInstructions") }}>Let's start</Button>) :
         (<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}><p>connecting to database ...</p><CircularProgress /></div>)}
     </div>
   )

@@ -11,50 +11,54 @@ import { shallow } from 'zustand/shallow';
 import { auth, db } from './db';
 import { ref, set, onValue, get, child } from 'firebase/database';
 import Feedback from './components/Feedback';
+import InstructionsSimilarity from './components/InstructionsSimilarity copy';
+import QueriesSimilarity from './components/QueriesSimilarity';
 
 function App() {
 
-    const [signIn, signOut, setTickerValue] = useStore((state) => ([state.signIn, state.signOut, state.setTickerValue]), shallow);
+  const [signIn, signOut, setTickerValue] = useStore((state) => ([state.signIn, state.signOut, state.setTickerValue]), shallow);
 
-    useEffect(() => {
-        signInAnonymously(auth)
+  useEffect(() => {
+    signInAnonymously(auth)
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("auth state control")
-                signIn();
-                // read ticker Value
-                const tickerRef = ref(db, `globalTickerValue`);
-                get(tickerRef).then((snapshot) => {
-                    let val = 0;
-                    if (snapshot.exists()) {
-                        val = snapshot.val();
-                    }
-                    setTickerValue(val);
-                    console.log(val);
-                    set(ref(db, `globalTickerValue`), val + 1);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("auth state control")
+        signIn();
+        // read ticker Value
+        const tickerRef = ref(db, `globalTickerValue`);
+        get(tickerRef).then((snapshot) => {
+          let val = 0;
+          if (snapshot.exists()) {
+            val = snapshot.val();
+          }
+          setTickerValue(val);
+          console.log(val);
+          set(ref(db, `globalTickerValue`), val + 1);
 
-                }
-                ).catch((error) => {
-                    console.error(error);
-                });
-            } else {
-                signOut();
-            }
+        }
+        ).catch((error) => {
+          console.error(error);
         });
-    }, [])
+      } else {
+        signOut();
+      }
+    });
+  }, [])
 
 
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Welcome />} />
-                <Route path='/welcome' element={<Welcome />} />
-                <Route path="/feedback" element={<Feedback/>}/>
-                <Route path='/done' element={<Done />} />
-            </Routes>
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path='/welcome' element={<Welcome />} />
+        <Route path='/similarityInstructions' element={<InstructionsSimilarity />} />
+        <Route path='/similarityQueries' element={<QueriesSimilarity />} />
+        <Route path="/feedback" element={<Feedback />} />
+        <Route path='/done' element={<Done />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
